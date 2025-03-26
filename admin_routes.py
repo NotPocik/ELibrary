@@ -18,22 +18,6 @@ import shutil
 #from predictor import predict_genres 
 
 
-'''
-model = None
-vectorizer = None
-mlb = None
-
-def load_model():
-    global model, vectorizer, mlb
-    if model is None or vectorizer is None or mlb is None:
-        model = joblib.load("genre_predictor_50.pkl")
-        vectorizer = joblib.load(r"D:\\Projects\\Python\\ELibraryTest\\tfidf_vectorizer_50.pkl")
-        mlb = joblib.load(r"D:\\Projects\\Python\\ELibraryTest\\mlb_50.pkl")
-
-
-'''
-
-
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
 
@@ -646,24 +630,3 @@ async def   update_book(
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-'''
-# Функция для предобработки текста
-def preprocess_text(text):
-    # Удаляем пунктуацию и приводим к нижнему регистру
-    text = text.translate(str.maketrans('', '', string.punctuation)).lower()
-    # Токенизация
-    tokens = word_tokenize(text)
-    # Удаление стоп-слов и лемматизация
-    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
-    return ' '.join(tokens)
-
-def predict_genres(description):
-    # Предобработка текста
-    processed_text = preprocess_text(description)
-
-    # Преобразование текста и предсказание
-    text_tfidf = vectorizer.transform([processed_text])
-    return mlb.inverse_transform(model.predict(text_tfidf))
-
-
-'''
