@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="/static/main_style.css">
+    <link rel="stylesheet" href="/static/profile_style.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">
+            <h1><a href="/" class="logo-link">Электронная библиотека</a></h1>
+        </div>
+        <nav>
+            <a href="/search_book">Поиск</a>
+            <a href="/">Главная</a>
+        </nav>
+        <div class="auth-menu">
+            <a href="#" id="logout-link" onclick="logout()">Выйти</a>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+        <h2 class="section-title">Профиль пользователя</h2>
+        <div id="profile-container">
+            <p><strong>Имя пользователя:</strong> <span id="username"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <button id="change-password-btn">Изменить пароль</button>
+        </div>
+    </main>
+
+    <!-- Модальное окно для изменения пароля -->
+    <div id="password-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Изменение пароля</h3>
+            <form id="password-form">
+                <label for="current-password">Текущий пароль:</label>
+                <input type="password" id="current-password" required>
+                <label for="new-password">Новый пароль:</label>
+                <input type="password" id="new-password" required>
+                <label for="confirm-password">Подтвердите пароль:</label>
+                <input type="password" id="confirm-password" required>
+                <button type="submit">Сохранить</button>
+                <button type="button" id="cancel-btn">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="notifications-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
+    <footer>
+        <p>&copy; 2024 Электронная библиотека</p>
+    </footer>
+
+    <script src="/static/profile_script.js"></script>
+</body>
+</html>

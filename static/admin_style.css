@@ -1,0 +1,566 @@
+/* Специфичные стили для админки */
+body {
+    background-color: #eef5f9;
+}
+
+header .logo h1 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+section {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    background-color: #2896ae;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1f7d92;
+}
+
+/* Стиль для карточек книг на панели администратора */
+.books-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.admin-book {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 220px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 1rem;
+    text-align: center;
+}
+
+.admin-book:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.admin-book .book-name {
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+    color: #2896ae;
+}
+
+.admin-book p {
+    margin: 0.5rem 0;
+    font-size: 0.95em;
+    color: #666;
+}
+
+.admin-book .book-rating {
+    font-weight: bold;
+    color: #2896ae;
+}
+
+.admin-book .book-actions {
+    margin-top: 1rem;
+}
+
+.admin-book .edit-btn, .admin-book .delete-btn {
+    background-color: #2896ae;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-book .edit-btn {
+    margin-bottom: 0.5em;
+}
+
+.admin-book .edit-btn:hover, .admin-book .delete-btn:hover {
+    background-color: #1f7d92;
+}
+
+
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: flex-start; /* Начало модального окна сверху */
+    overflow-y: auto; /* Позволяет прокручивать модальное окно */
+    padding: 20px; /* Чтобы было расстояние от краёв экрана */
+}
+
+/* Контент модального окна */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px; /* Ограничиваем ширину */
+    width: 100%; /* Подстраиваем под ширину экрана */
+    margin: auto; /* Центрируем по горизонтали */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.modal-content div {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Заголовок модального окна */
+.modal-content h2 {
+    margin-top: 0;
+    color: #2896ae;
+    text-align: center;
+}
+
+/* Поля ввода */
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #666;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    margin-top: 5px;
+    box-sizing: border-box; /* Чтобы ширина включала padding */
+}
+
+/* Кнопка */
+.modal-content button {
+    background-color: #2896ae;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background-color: #1f7d92;
+}
+
+.book-genre-field {
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+    max-width: 100%; /* Убедимся, что контейнер не выходит за пределы */
+}
+
+.book-genre-field #book-genres-container {
+    all: unset;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.book-genre-field .add-genre {
+    all: unset;
+    display: flex;
+    align-items: center; /* Выравниваем по вертикали */
+    gap: 5px;
+    margin-top: 0;
+    width: 100%;
+}
+
+.book-genre-field .add-genre input {
+    all: unset;
+    flex: 1; /* Поле занимает всё доступное пространство */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    height: 34px;
+}
+
+.book-genre-field .add-genre button {
+    all: unset;
+    padding: 0 10px;
+    height: 34px;
+    background-color: #2896ae;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    line-height: 1;
+    flex-shrink: 0; /* Не уменьшаем кнопку */
+}
+
+.book-genre-field .add-genre button:hover {
+    background-color: #1f7d92;
+}
+
+.book-genre-field .genre-tag {
+    background-color: #2896ae;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+    max-height: 30px;
+    overflow: hidden;
+    white-space: nowrap; /* Запрет переноса текста */
+}
+
+.book-genre-field .genre-tag .remove-genre {
+    all: unset;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.book-genre-field .genre-tag .remove-genre:hover {
+    background-color: #d9363e;
+}
+
+.book-genre-field .suggestions {
+    position: absolute;
+    top: calc(100% + 5px); /* Расположить чуть ниже поля */
+    left: 0;
+    width: 100%; /* Совпадает с шириной поля */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.book-genre-field .suggestions div {
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.book-genre-field .suggestions div:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* Кнопка закрытия */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    color: #666;
+    cursor: pointer;
+}
+
+/* Отключение прокрутки основной страницы при открытом модальном окне */
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* Стили для текста ошибок */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+
+/* Стили для контейнера авторов */
+.modal-authors-container {
+    margin-bottom: 10px;
+}
+
+.modal-authors-container .author-fields {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-authors-container .author-fields input {
+    flex: 1;
+    padding: 5px;
+}
+
+/* Кнопка удаления автора внутри модального окна */
+.modal-authors-container .remove-author {
+    background-color: #e74c3c; /* Красный цвет */
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap; /* Исключает перенос текста */
+}
+
+.modal-authors-container .remove-author:hover {
+    background-color: #c0392b; /* Темно-красный при наведении */
+}
+
+/* Стили для кнопки загрузки файлов */
+.file-upload-container {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.book-files {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.file-upload-label {
+    background-color: #2896ae;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+}
+
+.file-upload-label:hover {
+    background-color: #1f7d92;
+}
+
+
+/* Список файлов */
+.files-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.files-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.files-list .remove-file {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    flex-shrink: 0; /* Кнопка не сжимается */
+    max-width: 80px; /* Ограничение ширины */
+    white-space: nowrap; /* Текст не переносится */
+}
+
+.files-list .remove-file:hover {
+    background-color: #c0392b;
+}
+
+
+/* Стили для уведомлений */
+.notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: fadeOut 3s forwards ease-in-out;
+}
+
+.error-notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #edd4d4;
+    border: 1px solid #e6c3c3;
+    color: #571515;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: fadeOut 3s forwards ease-in-out;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+
+/* Дополнительные стили для полей ввода автора */
+.author-modal .modal-content input,
+.author-modal .modal-content button {
+    margin-bottom: 15px;  /* Добавляем отступы для удобства */
+}
+    
+.author-modal .modal-content button {
+    background-color: #2896ae;
+    width: 100%;
+}
+
+
+.admin-author {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 220px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 1rem;
+    text-align: center;
+}
+
+.admin-author:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.admin-author .author-name {
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+    color: #2896ae;
+}
+
+.admin-author p {
+    margin: 0.5rem 0;
+    font-size: 0.95em;
+    color: #666;
+}
+
+.admin-author .author-actions {
+    margin-top: 1rem;
+}
+
+.admin-author .edit-btn, .admin-author .delete-btn {
+    background-color: #2896ae;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-author .edit-btn {
+    margin-bottom: 0.5em;
+}
+
+.admin-author .edit-btn:hover, .admin-author .delete-btn:hover {
+    background-color: #1f7d92;
+}
+
+
+.confirmation-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-actions button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dialog-actions .confirm-btn {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.dialog-actions .cancel-btn {
+    background-color: #ccc;
+}
+
+
+/* Стили для поля поиска */
+.search-field {
+    width: 300px;
+    padding: 10px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.search-field:focus {
+    outline: none;
+    border-color: #2896ae;
+    box-shadow: 0 0 5px rgba(40, 150, 174, 0.5);
+}

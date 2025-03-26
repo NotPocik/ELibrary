@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск книг</title>
+    <link rel="stylesheet" href="/static/main_style.css">
+    <link rel="stylesheet" href="/static/search_book_style.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">
+            <h1><a href="/" class="logo-link">Электронная библиотека</a></h1>
+        </div>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/search_book">Поиск</a>
+        </nav>
+        <div class="auth-menu">
+            <a href="/profile" id="profile-link" class="hidden" onclick="profile()">Мой профиль</a>
+            <a href="#logout" id="logout-link" class="hidden" onclick="logout()">Выйти</a>
+            <a href="#login" id="login-link" onclick="login()">Войти</a>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+        <h2 class="section-title">Поиск книг</h2>
+        <form id="search-form">
+            <div class="form-group">
+                <label for="name">Название:</label>
+                <input type="text" id="name" name="name" placeholder="Введите название книги">
+            </div>
+            <div class="form-group">
+                <label for="author">Автор:</label>
+                <input type="text" id="author" name="author" placeholder="Введите имя автора">
+            </div>
+            <div class="form-group genres-group">
+                <label>Жанры:</label>
+                <div id="genres-container"></div>
+                <div class="add-genre">
+                    <input type="text" id="genre-input" placeholder="Добавить жанр">
+                    <div id="suggestions" class="suggestions"></div>
+                    <button type="button" id="add-genre-button">+</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="series">Серия:</label>
+                <input type="text" id="series" name="series" placeholder="Введите серию">
+            </div>
+            <button type="submit">Искать</button>
+        </form>
+
+        <div id="search-results"></div>
+    </main>
+
+    <div id="notifications-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
+    <footer>
+        <p>&copy; 2024 Электронная библиотека</p>
+    </footer>
+
+    <script src="/static/search_book_script.js"></script>
+</body>
+</html>

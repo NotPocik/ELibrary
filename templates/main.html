@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Электронная библиотека</title>
+    <link rel="stylesheet" href="/static/main_style.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">
+            <h1>Электронная библиотека</h1>
+        </div>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/search_book">Поиск</a>
+             <!-- 
+            <div class="dropdown">
+                <a href="#genres" class="dropdown-toggle">Жанры</a>
+                <div class="dropdown-menu">
+                    <a href="#fiction">Художественная литература</a>
+                    <a href="#nonfiction">Нон-фикшн</a>
+                    <a href="#fantasy">Фэнтези</a>
+                    <a href="#mystery">Детективы</a>
+                    <a href="#all-genres">Все жанры</a>
+                </div>
+            </div>
+            <a href="#authors">Авторы</a> 
+            -->
+        </nav>
+        <div class="auth-menu">
+            <a href="/profile" id="profile-link" class="hidden" onclick="profile()">Мой профиль</a>
+            <a href="#logout" id="logout-link" class="hidden" onclick="logout()">Выйти</a>
+            <a href="#login" id="login-link" onclick="login()">Войти</a>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+        <h2 class="section-title">Популярные книги</h2>
+        <div id="books-container"></div>
+    </main>
+
+    <div id="notifications-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+    
+
+    <footer>
+        <p>&copy; 2024 Электронная библиотека</p>
+    </footer>
+
+    <script src="/static/main_script.js"></script>
+</body>
+</html>

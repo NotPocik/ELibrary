@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о книге</title>
+    <link rel="stylesheet" href="/static/book_style.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">
+            <h1><a href="/" class="logo-link">Электронная библиотека</a></h1>
+        </div>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/search_book">Поиск</a>
+            <!-- 
+            <div class="dropdown">
+                <a href="#genres" class="dropdown-toggle">Жанры</a>
+                <div class="dropdown-menu">
+                    <a href="#fiction">Художественная литература</a>
+                    <a href="#nonfiction">Нон-фикшн</a>
+                    <a href="#fantasy">Фэнтези</a>
+                    <a href="#mystery">Детективы</a>
+                    <a href="#all-genres">Все жанры</a>
+                </div>
+            </div>
+            <a href="#authors">Авторы</a> 
+            -->
+        </nav>
+        <div class="auth-menu">
+            <a href="/profile" id="profile-link" class="hidden" onclick="profile()">Мой профиль</a>
+            <a href="#logout" id="logout-link" class="hidden" onclick="logout()">Выйти</a>
+            <a href="#login" id="login-link" onclick="login()">Войти</a>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+        <div class="book-details" data-book-id="{{ book_id }}">
+            <h2 class="book-title">Название книги</h2>
+            <div class="book-info">
+                <p><strong>ISBN:</strong> <span id="isbn">123456789</span></p>
+                <p><strong>Автор(ы):</strong> <span id="authors">Автор 1, Автор 2</span></p>
+                <p><strong>Жанры:</strong> <span id="genres">Жанр 1, Жанр 2</span></p>
+                <p><strong>Серия книг:</strong> <span id="series">Серия</span></p>
+                <p><strong>Язык:</strong> <span id="language">Русский</span></p>
+                <p><strong>Издательство:</strong> <span id="publisher">Издательство</span></p>
+                <p><strong>Год публикации:</strong> <span id="year">2023</span></p>
+                <p><strong>Рейтинг:</strong> <span id="rating">9.5 ★</span></p>
+                <p><strong>Скачивания:</strong> <span id="downloads">1500</span></p>
+            </div>
+
+            <div class="book-description">
+                <h3>Описание</h3>
+                <p id="description">Это описание книги, которое может быть довольно объемным и содержательным...</p>
+            </div>
+
+            <div class="download-formats">
+                <h3>Форматы для скачивания</h3>
+            </div>
+
+            <div class="reviews">
+                <h3>Отзывы и оценки</h3>
+
+                <!-- Секция добавления оценки -->
+                <div class="rating-section">
+                    <h4>Ваша оценка</h4>
+                    <p id="current-rating">Вы еще не оценили книгу.</p>
+                    <div class="rating-form">
+                        <label for="rating-select">Оцените книгу:</label>
+                        <select id="rating-select">
+                            <option value="" selected>Выберите оценку</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <button id="submit-rating-btn">Сохранить</button>
+                    </div>
+                </div>
+
+                <!-- Секция добавления отзыва -->
+                <div class="review-form">
+                    <h4>Напишите отзыв</h4>
+                    <textarea id="review-text" rows="4" placeholder="Ваш отзыв..."></textarea>
+                    <button id="submit-review-btn" onclick="add_review()">Добавить отзыв</button>
+                </div>
+
+                <!-- Список отзывов -->
+                <div class="review-list">
+                    <h4>Отзывы пользователей</h4>
+                    <ul id="reviews-container"></ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="notifications-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
+
+    <footer>
+        <p>&copy; 2024 Электронная библиотека</p>
+    </footer>
+
+    <script src="/static/book_script.js"></script>
+      
+      
+</body>
+</html>

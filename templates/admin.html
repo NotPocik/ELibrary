@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="/static/main_style.css">
+    <link rel="stylesheet" href="/static/admin_style.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">
+            <h1>Панель администратора</h1>
+        </div>
+        <nav>
+            <a href="/">На главную</a>
+            <a href="#books">Книги</a>
+            <a href="#authors">Авторы</a>
+            <a href="#genres">Жанры</a>
+            <a href="#publishers">Издательства</a>
+            <a href="#bookseries">Серии книг</a>
+        </nav>
+        <div class="auth-menu">
+            <a href="#logout" id="logout-link" onclick="logout()">Выйти</a>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+        <section id="books">
+            <h2 class="section-title">Управление книгами</h2>
+            <button onclick="showAddBookForm()">Добавить книгу</button>
+            <input type="text" id="book-search" class="search-field" placeholder="Поиск книг..." oninput="searchBooks()">
+            <div id="books-container" class="books-container">
+                <!-- Динамически загружаемые книги -->
+            </div>
+        </section>
+
+        <section id="authors">  
+            <h2 class="section-title">Управление авторами</h2>
+            <button onclick="showAddAuthorForm()">Добавить автора</button>
+            <input type="text" id="author-search" class="search-field" placeholder="Поиск авторов..." oninput="searchAuthors()">
+            <div id="authors-container" class="books-container">
+                <!-- Динамически загружаемые авторы -->
+            </div>
+        </section>
+
+        <section id="genres">
+            <h2 class="section-title">Управление жанрами</h2>
+            <button onclick="showAddGenreForm()">Добавить жанр</button>
+            <input type="text" id="genre-search" class="search-field" placeholder="Поиск жанров..." oninput="searchGenres()">
+            <div id="genres-container" class="books-container">
+                <!-- Динамически загружаемые жанры -->
+            </div>
+        </section>
+
+        <section id="publishers">
+            <h2 class="section-title">Управление издательствами</h2>
+            <button onclick="showAddPublisherForm()">Добавить издательство</button>
+            <input type="text" id="publisher-search" class="search-field" placeholder="Поиск издательств..." oninput="searchPublishers()">
+            <div id="publishers-container" class="books-container">
+                <!-- Динамически загружаемые издательства -->
+            </div>
+        </section>
+
+        <section id="bookseries">
+            <h2 class="section-title">Управление сериями книг</h2>
+            <button onclick="showAddSeriesForm()">Добавить серию книг</button>
+            <input type="text" id="series-search" class="search-field" placeholder="Поиск серий книг..." oninput="searchSeries()">
+            <div id="series-container" class="books-container">
+                <!-- Динамически загружаемые жанры -->
+            </div>
+        </section>
+    </main>
+    <div id="notifications-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
+
+    <div id="add-book-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddBookForm()">&times;</span>
+            <h2>Добавить книгу</h2>
+
+            <!-- Название -->
+            <label for="book-title">Название:</label>
+            <input type="text" id="book-title" placeholder="Введите название книги" required>
+
+            <!-- Описание -->
+            <label for="book-description">Описание (опционально):</label>
+            <textarea id="book-description" placeholder="Введите описание книги"></textarea>
+
+            <!-- ISBN -->
+            <label for="book-isbn">ISBN (опционально):</label>
+            <input type="text" id="book-isbn" placeholder="Введите ISBN">
+
+            <!-- Авторы -->
+            <label>Авторы (опционально):</label>
+            <div id="modal-authors-container" class="modal-authors-container">
+                <div class="author-fields">
+                    <input type="text" class="author-first-name" placeholder="Имя">
+                    <input type="text" class="author-last-name" placeholder="Фамилия">
+                    <button type="button" class="remove-author" onclick="removeAuthor(this)">Удалить</button>
+                </div>
+            </div>
+            <button type="button" class="add-btn" onclick="addAuthor()">Добавить автора</button>
+
+
+            <!-- Жанры -->
+            <label for="book-genres">Жанры (опционально):</label>
+            <div class="book-genre-field">
+                <div id="book-genres-container"></div>
+                <div class="add-genre">
+                    <input type="text" id="book-genre-input" placeholder="Введите жанр">
+                    <button type="button" id="add-book-genre-button">+</button>
+                    <div id="book-genre-suggestions" class="suggestions"></div>
+                </div>
+            </div>
+
+            <!-- Серия книг -->
+            <label for="book-series">Серия (опционально):</label>
+            <input type="text" id="book-series" placeholder="Введите серию книг">
+
+            <!-- Язык -->
+            <label for="book-language">Язык (опционально):</label>
+            <input type="text" id="book-language" placeholder="Введите язык">
+
+            <!-- Издательство -->
+            <label for="book-publisher">Издательство (опционально):</label>
+            <input type="text" id="book-publisher" placeholder="Введите издательство">
+
+            <!-- Год публикации -->
+            <label for="book-year">Год публикации (опционально):</label>
+            <input type="number" id="book-year" placeholder="Введите год">
+
+            <!-- Загрузка файлов -->
+            <label>Загрузка файлов:</label>
+            <div class="file-upload-container">
+                <input type="file" id="book-files" class="book-files" multiple hidden>
+                <label for="book-files" class="file-upload-label">Выберите файлы</label>
+            </div>
+            <ul id="files-list" class="files-list">
+                <!-- Список загруженных файлов -->
+            </ul>
+
+            <!-- Кнопка отправки -->
+            <button id="add-book-btn" type="button" onclick="submitBook()">Добавить книгу</button>
+        </div>
+    </div>
+
+
+    <div id="edit-book-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditBookForm()">&times;</span>
+        <h2>Изменить книгу</h2>
+
+        <!-- Название -->
+        <label for="edit-book-title">Название:</label>
+        <input type="text" id="edit-book-title" placeholder="Введите название книги" required>
+
+        <!-- Описание -->
+        <label for="edit-book-description">Описание (опционально):</label>
+        <textarea id="edit-book-description" placeholder="Введите описание книги"></textarea>
+
+        <!-- ISBN -->
+        <label for="edit-book-isbn">ISBN (опционально):</label>
+        <input type="text" id="edit-book-isbn" placeholder="Введите ISBN">
+
+        <!-- Авторы -->
+        <label>Авторы (опционально):</label>
+        <div id="edit-modal-authors-container" class="modal-authors-container">
+            <!-- Поля для авторов будут добавлены через JS -->
+        </div>
+        <button type="button" class="add-btn" onclick="addAuthor('edit-')">Добавить автора</button>
+
+        <!-- Жанры -->
+        <label for="edit-book-genres">Жанры (опционально):</label>
+        <div class="book-genre-field">
+            <div id="edit-book-genres-container"></div>
+            <div class="add-genre">
+                <input type="text" id="edit-book-genre-input" placeholder="Введите жанр">
+                <button type="button" id="edit-add-book-genre-button">+</button>
+                <div id="edit-book-genre-suggestions" class="suggestions"></div>
+            </div>
+        </div>
+
+        <!-- Серия книг -->
+        <label for="edit-book-series">Серия (опционально):</label>
+        <input type="text" id="edit-book-series" placeholder="Введите серию книг">
+
+        <!-- Язык -->
+        <label for="edit-book-language">Язык (опционально):</label>
+        <input type="text" id="edit-book-language" placeholder="Введите язык">
+
+        <!-- Издательство -->
+        <label for="edit-book-publisher">Издательство (опционально):</label>
+        <input type="text" id="edit-book-publisher" placeholder="Введите издательство">
+
+        <!-- Год публикации -->
+        <label for="edit-book-year">Год публикации (опционально):</label>
+        <input type="number" id="edit-book-year" placeholder="Введите год">
+
+        <!-- Список файлов -->
+        <label>Файлы книги:</label>
+        <ul id="edit-files-list" class="files-list"></ul>
+
+        <!-- Загрузка новых файлов -->
+        <label>Загрузка новых файлов:</label>
+        <div class="file-upload-container">
+            <input type="file" id="edit-book-files" class="book-files" multiple hidden>
+            <label for="edit-book-files" class="file-upload-label">Выберите файлы</label>
+        </div>
+
+        <!-- Кнопка сохранения -->
+        <button id="edit-book-btn" type="button" onclick="submitEditBook()">Сохранить изменения</button>
+    </div>
+    </div>
+
+
+
+
+    <!-- Модальное окно для добавления автора -->
+    <div id="add-author-modal" class="modal" class="author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddAuthorForm()">&times;</span>
+            <h2>Добавить автора</h2>
+
+            <!-- Имя -->
+            <label for="author-first-name">Имя:</label>
+            <input type="text" id="author-first-name" placeholder="Введите имя" required>
+
+            <!-- Фамилия -->
+            <label for="author-last-name">Фамилия:</label>
+            <input type="text" id="author-last-name" placeholder="Введите фамилию" required>
+
+            <!-- Дата рождения -->
+            <label for="author-birthdate">Дата рождения:</label>
+            <input type="date" id="author-birthdate">
+
+            <!-- Кнопка отправки -->
+            <button id="add-author-btn" type="button" onclick="submitAuthor()">Добавить автора</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования автора -->
+    <div id="edit-author-modal" class="modal author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditAuthorForm()">&times;</span>
+            <h2>Редактировать автора</h2>
+
+            <!-- Имя -->
+            <label for="edit-author-first-name">Имя:</label>
+            <input type="text" id="edit-author-first-name" placeholder="Введите имя" required>
+
+            <!-- Фамилия -->
+            <label for="edit-author-last-name">Фамилия:</label>
+            <input type="text" id="edit-author-last-name" placeholder="Введите фамилию" required>
+
+            <!-- Дата рождения -->
+            <label for="edit-author-birthdate">Дата рождения:</label>
+            <input type="date" id="edit-author-birthdate">
+
+            <!-- Кнопка сохранения -->
+            <button id="edit-author-btn" type="button" onclick="submitEditAuthor()">Сохранить изменения</button>
+        </div>
+    </div>
+
+
+    <!-- Модальное окно для добавления жанра -->
+    <div id="add-genre-modal" class="modal author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddGenreForm()">&times;</span>
+            <h2>Добавить жанр</h2>
+
+            <!-- Название -->
+            <label for="genre-name">Название:</label>
+            <input type="text" id="genre-name" placeholder="Введите название" required>
+
+            <!-- Описание -->
+            <label for="genre-description">Описание:</label>
+            <textarea id="genre-description" placeholder="Введите описание"></textarea>
+
+            <!-- Кнопка отправки -->
+            <button id="add-genre-btn" type="button" onclick="submitGenre()">Добавить жанр</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования жанра -->
+    <div id="edit-genre-modal" class="modal author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditGenreForm()">&times;</span>
+            <h2>Редактировать жанр</h2>
+
+            <!-- Название -->
+            <label for="edit-genre-name">Название:</label>
+            <input type="text" id="edit-genre-name" placeholder="Введите название" required>
+
+            <!-- Описание -->
+            <label for="edit-genre-description">Описание:</label>
+            <textarea id="edit-genre-description" placeholder="Введите описание"></textarea>
+
+            <!-- Кнопка сохранения -->
+            <button id="edit-genre-btn" type="button">Сохранить изменения</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления издательства -->
+    <div id="add-publisher-modal" class="modal author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddPublisherForm()">&times;</span>
+            <h2>Добавить издательство</h2>
+
+            <!-- Название -->
+            <label for="publisher-name">Название:</label>
+            <input type="text" id="publisher-name" placeholder="Введите название" required>
+
+            <!-- Год основания -->
+            <label for="publisher-foundation-year">Год основания:</label>
+            <input type="number" id="publisher-foundation-year" placeholder="Введите год основания">
+
+            <!-- Страна -->
+            <label for="publisher-country">Страна:</label>
+            <input type="text" id="publisher-country" placeholder="Введите страну">
+
+            <!-- Кнопка отправки -->
+            <button id="add-publisher-btn" type="button" onclick="submitPublisher()">Добавить издательство</button>
+        </div>
+    </div>
+
+
+    <!-- Модальное окно для редактирования издательства -->
+    <div id="edit-publisher-modal" class="modal author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditPublisherForm()">&times;</span>
+            <h2>Редактировать издательство</h2>
+
+            <!-- Название -->
+            <label for="edit-publisher-name">Название:</label>
+            <input type="text" id="edit-publisher-name" placeholder="Введите название" required>
+
+            <!-- Год основания -->
+            <label for="edit-publisher-foundation-year">Год основания:</label>
+            <input type="number" id="edit-publisher-foundation-year" placeholder="Введите год основания">
+
+            <!-- Страна -->
+            <label for="edit-publisher-country">Страна:</label>
+            <input type="text" id="edit-publisher-country" placeholder="Введите страну">
+
+            <!-- Кнопка сохранения -->
+            <button id="edit-publisher-btn" type="button">Сохранить изменения</button>
+        </div>
+    </div>
+
+
+    <!-- Модальное окно для добавления серии -->
+    <div id="add-series-modal" class="modal author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddSeriesForm()">&times;</span>
+            <h2>Добавить серию</h2>
+
+            <!-- Название -->
+            <label for="series-name">Название:</label>
+            <input type="text" id="series-name" placeholder="Введите название" required>
+
+            <!-- Описание -->
+            <label for="series-description">Описание:</label>
+            <textarea id="series-description" placeholder="Введите описание"></textarea>
+
+            <!-- Кнопка отправки -->
+            <button id="add-series-btn" type="button" onclick="submitSeries()">Добавить серию</button>
+        </div>
+    </div>
+
+
+    <!-- Модальное окно для редактирования серии -->
+    <div id="edit-series-modal" class="modal author-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditSeriesForm()">&times;</span>
+            <h2>Редактировать серию</h2>
+
+            <!-- Название -->
+            <label for="edit-series-name">Название:</label>
+            <input type="text" id="edit-series-name" placeholder="Введите название" required>
+
+            <!-- Описание -->
+            <label for="edit-series-description">Описание:</label>
+            <textarea id="edit-series-description" placeholder="Введите описание"></textarea>
+
+            <!-- Кнопка сохранения -->
+            <button id="edit-series-btn" type="button">Сохранить изменения</button>
+        </div>
+    </div>
+
+
+
+
+    <footer>
+        <p>&copy; 2024 Панель администратора</p>
+    </footer>
+
+    <script src="/static/admin_script.js"></script>
+</body>
+</html>
